@@ -65,7 +65,7 @@ export default function VolumeTable({ rows, onRowsChange }) {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
       {/* Table Container with Mobile Scroll */}
-      <div className="overflow-x-auto -mx-1">
+      <div className="overflow-x-auto -mx-1 overscroll-x-contain">
         <div className="inline-block min-w-full align-middle px-1">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
