@@ -101,7 +101,7 @@ export default function VolumeTable({ rows, onRowsChange }) {
                 <tr>
                   <td colSpan="8" className="px-4 py-12 text-center">
                     <div className="text-gray-400 text-sm font-medium">No measurements yet</div>
-                    <div className="text-gray-300 text-xs mt-1">Click "Add Crate" to start</div>
+                    <div className="text-gray-300 text-xs mt-1">Click "Add" to start</div>
                   </td>
                 </tr>
               ) : (
@@ -193,7 +193,7 @@ export default function VolumeTable({ rows, onRowsChange }) {
           className="inline-flex items-center px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all active:scale-95"
         >
           <Plus className="h-4 w-4 mr-2" />
-          Add Crate
+          Add
         </button>
         <button
           onClick={handleClearAll}

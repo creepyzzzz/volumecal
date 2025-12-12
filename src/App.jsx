@@ -69,9 +69,8 @@ function App() {
     <div className="min-h-screen bg-[#F9FAFB] pb-8 safe-area-inset-bottom">
       {/* Header */}
       <div className="bg-white border-b border-gray-200/80 sticky top-0 z-20 shadow-sm safe-area-inset-top">
-        <div className="px-4 py-3 sm:px-6 sm:py-5">
-          <h1 className="text-xl sm:text-3xl font-semibold text-gray-900 tracking-tight">Volume Calculator</h1>
-          <p className="text-xs sm:text-base text-gray-500 mt-0.5 sm:mt-1">Calculate volumes for construction measurements</p>
+        <div className="px-4 py-2 sm:px-6 sm:py-3">
+          <h1 className="text-lg sm:text-2xl font-semibold text-gray-900 tracking-tight">Volume Calculator</h1>
         </div>
       </div>
 
