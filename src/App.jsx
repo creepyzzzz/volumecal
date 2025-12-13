@@ -42,12 +42,9 @@ function App() {
   }, [workInfo, workType, rows]);
 
   const getPDFData = () => {
-    const date = new Date().toLocaleDateString();
-
     return {
       workDetail: workInfo,
       workType,
-      date,
       rows,
     };
   };

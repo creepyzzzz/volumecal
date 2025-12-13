@@ -8,7 +8,6 @@ export function generatePDF(data) {
   const {
     workDetail = '',
     workType = '',
-    date = new Date().toLocaleDateString(),
     rows = [],
   } = data;
 
@@ -46,8 +45,7 @@ export function generatePDF(data) {
     yPos += 7;
   }
   
-  doc.text(`Date: ${date}`, 14, yPos);
-  yPos += 10;
+  yPos += 3;
   
   // Prepare table data
   const tableData = rows.map((row, index) => [
@@ -117,13 +115,12 @@ export function downloadPDF(data) {
   const doc = generatePDF(data);
   const {
     workDetail = '',
-    date = new Date().toLocaleDateString(),
   } = data;
   
   // Use first line of workDetail for filename, or first 20 chars
   const workDetailForFile = workDetail.split('\n')[0] || workDetail.substring(0, 20) || 'Report';
   const sanitized = workDetailForFile.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 30);
-  const fileName = `Volume_Calculation_${sanitized}_${date.replace(/\//g, '-')}.pdf`;
+  const fileName = `Volume_Calculation_${sanitized}.pdf`;
   doc.save(fileName);
 }
 
@@ -134,13 +131,12 @@ export async function sharePDF(data) {
   const doc = generatePDF(data);
   const {
     workDetail = '',
-    date = new Date().toLocaleDateString(),
   } = data;
   
   // Use first line of workDetail for filename
   const workDetailForFile = workDetail.split('\n')[0] || workDetail.substring(0, 20) || 'Report';
   const sanitized = workDetailForFile.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 30);
-  const fileName = `Volume_Calculation_${sanitized}_${date.replace(/\//g, '-')}.pdf`;
+  const fileName = `Volume_Calculation_${sanitized}.pdf`;
   
   const pdfBlob = doc.output('blob');
   const file = new File([pdfBlob], fileName, { type: 'application/pdf' });
