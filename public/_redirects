@@ -1,4 +1,4 @@
 # Netlify redirects file
-# Netlify automatically serves existing files
-# This SPA redirect only applies when file doesn't exist
-/*    /index.html   200
+# Netlify serves existing files automatically
+# This redirect only applies when file doesn't exist (SPA routing)
+/*  /index.html  200

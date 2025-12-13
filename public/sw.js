@@ -1,19 +1,7 @@
 const CACHE_NAME = 'volume-calculator-v1';
-const urlsToCache = [
-  '/',
-  '/index.html'
-];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        return cache.addAll(urlsToCache).catch((error) => {
-          // Silently handle cache errors
-          console.error('Cache addAll failed:', error);
-        });
-      })
-  );
+  // Don't cache anything on install - use network-first strategy
   self.skipWaiting();
 });
 
@@ -33,14 +21,22 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  // Network-first strategy - always try network first
+  // Only use cache if network fails
   event.respondWith(
-    caches.match(event.request)
+    fetch(event.request)
       .then((response) => {
-        return response || fetch(event.request).catch(() => {
-          // Return offline page or fallback
-          if (event.request.destination === 'document') {
+        // If network request succeeds, return it
+        return response;
+      })
+      .catch(() => {
+        // If network fails, try cache
+        return caches.match(event.request).then((cachedResponse) => {
+          // If it's a document request and cache fails, return index.html
+          if (!cachedResponse && event.request.destination === 'document') {
             return caches.match('/index.html');
           }
+          return cachedResponse;
         });
       })
   );
