@@ -1,0 +1,5 @@
+# Netlify redirects file
+# Netlify automatically serves existing files with correct MIME types
+# This redirect only applies to non-existent files (SPA routing)
+/*    /index.html   200
+
