@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { FileDown } from 'lucide-react';
+import { FileDown, Share2 } from 'lucide-react';
 import HeaderForm from './components/HeaderForm';
 import VolumeTable from './components/VolumeTable';
 import { saveToStorage, loadFromStorage, debounce } from './utils/storage';
-import { generatePDF } from './utils/pdfExport';
+import { downloadPDF, sharePDF } from './utils/pdfExport';
 
 function App() {
   const [workInfo, setWorkInfo] = useState('');
@@ -41,25 +41,38 @@ function App() {
     debouncedSave(dataToSave);
   }, [workInfo, workType, rows]);
 
-  const handleExportPDF = () => {
-    if (rows.length === 0) {
-      alert('No data to export. Please add at least one row.');
-      return;
-    }
-
+  const getPDFData = () => {
     // Split workInfo into name and location (first line = name, rest = location)
     const lines = workInfo.split('\n').filter(Boolean);
     const workName = lines[0] || '';
     const siteLocation = lines.slice(1).join(', ') || lines[0] || '';
     const date = new Date().toLocaleDateString();
 
-    generatePDF({
+    return {
       workName,
       siteLocation,
       workType,
       date,
       rows,
-    });
+    };
+  };
+
+  const handleDownloadPDF = () => {
+    if (rows.length === 0) {
+      alert('No data to export. Please add at least one row.');
+      return;
+    }
+
+    downloadPDF(getPDFData());
+  };
+
+  const handleSharePDF = async () => {
+    if (rows.length === 0) {
+      alert('No data to export. Please add at least one row.');
+      return;
+    }
+
+    await sharePDF(getPDFData());
   };
 
   const grandTotalFt3 = rows.reduce((sum, row) => sum + (row.volFt3 || 0), 0);
@@ -98,15 +111,23 @@ function App() {
           </div>
         )}
 
-        {/* Export Button */}
-        <div className="flex justify-end">
+        {/* Export Buttons */}
+        <div className="flex justify-end gap-3">
           <button
-            onClick={handleExportPDF}
+            onClick={handleSharePDF}
+            className="inline-flex items-center px-5 py-3.5 bg-white border-2 border-emerald-500 text-emerald-600 hover:bg-emerald-50 text-base font-semibold rounded-xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-95"
+            disabled={rows.length === 0}
+          >
+            <Share2 className="h-5 w-5 mr-2" />
+            Share
+          </button>
+          <button
+            onClick={handleDownloadPDF}
             className="inline-flex items-center px-6 py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white text-base font-semibold rounded-xl shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-95"
             disabled={rows.length === 0}
           >
             <FileDown className="h-5 w-5 mr-2" />
-            Export PDF
+            Download
           </button>
         </div>
       </div>
