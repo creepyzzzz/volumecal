@@ -52,8 +52,11 @@ export default function VolumeTable({ rows, onRowsChange }) {
   };
 
   const handleKeyDown = (e, id, field) => {
-    if (e.key === ' ' && (field === 'heightReadings' || field === 'topReadings')) {
+    // Handle spacebar for Height and Top fields (works on mobile and desktop)
+    if ((field === 'heightReadings' || field === 'topReadings') && 
+        (e.key === ' ' || e.key === 'Space' || e.keyCode === 32)) {
       e.preventDefault();
+      e.stopPropagation();
       const currentValue = rows.find(r => r.id === id)?.[field] || '';
       handleInputChange(id, field, currentValue + '+');
     }

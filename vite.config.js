@@ -9,5 +9,10 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
   },
+  server: {
+    host: true, // Allow access from network (mobile devices on same WiFi)
+    port: 5173,
+    strictPort: false,
+  },
 })
 
