@@ -3,7 +3,7 @@ export default function HeaderForm({ workInfo, workType, onWorkInfoChange, onWor
     <div className="p-5 sm:p-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
         <div>
-          <label htmlFor="work-detail" className="block text-sm font-semibold text-gray-700 mb-2.5">
+          <label htmlFor="work-detail" className="block text-sm font-semibold text-gray-900 mb-2.5">
             Work Detail
           </label>
           <textarea
@@ -18,7 +18,7 @@ export default function HeaderForm({ workInfo, workType, onWorkInfoChange, onWor
         </div>
         
         <div>
-          <label htmlFor="work-type" className="block text-sm font-semibold text-gray-700 mb-2.5">
+          <label htmlFor="work-type" className="block text-sm font-semibold text-gray-900 mb-2.5">
             Work Type
           </label>
           <select

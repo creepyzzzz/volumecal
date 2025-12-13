@@ -111,28 +111,28 @@ export default function VolumeTable({ rows, onRowsChange }) {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider w-14">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider w-14">
                   #
                 </th>
-                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[100px]">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider min-w-[100px]">
                   Length
                 </th>
-                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[120px]">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider min-w-[120px]">
                   Height
                 </th>
-                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[120px]">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider min-w-[120px]">
                   Top
                 </th>
-                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[100px]">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider min-w-[100px]">
                   Bed
                 </th>
-                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[90px]">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider min-w-[90px]">
                   Vol (ft³)
                 </th>
-                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[90px]">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider min-w-[90px]">
                   Vol (m³)
                 </th>
-                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider w-16">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider w-16">
                   <span className="sr-only">Action</span>
                 </th>
               </tr>
@@ -140,10 +140,10 @@ export default function VolumeTable({ rows, onRowsChange }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {rows.length === 0 ? (
                 <tr>
-                  <td colSpan="8" className="px-4 py-12 text-center">
-                    <div className="text-gray-400 text-sm font-medium">No measurements yet</div>
-                    <div className="text-gray-300 text-xs mt-1">Click "Add" to start</div>
-                  </td>
+                    <td colSpan="8" className="px-4 py-12 text-center">
+                      <div className="text-gray-600 text-sm font-medium">No measurements yet</div>
+                      <div className="text-gray-500 text-xs mt-1">Click "Add" to start</div>
+                    </td>
                 </tr>
               ) : (
                 rows.map((row, index) => (
@@ -214,7 +214,7 @@ export default function VolumeTable({ rows, onRowsChange }) {
                     <td className="px-3 py-3.5 sm:px-4 whitespace-nowrap">
                       <button
                         onClick={() => handleDeleteRow(row.id)}
-                        className="text-gray-400 hover:text-red-500 p-1.5 rounded-lg hover:bg-red-50 transition-all active:scale-95"
+                        className="text-gray-600 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 transition-all active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
                         aria-label={`Delete row ${index + 1}`}
                         title={`Delete row ${index + 1}`}
                       >
@@ -226,15 +226,15 @@ export default function VolumeTable({ rows, onRowsChange }) {
               )}
             </tbody>
             {rows.length > 0 && (
-              <tfoot className="bg-emerald-50/50 border-t-2 border-emerald-200">
+              <tfoot className="bg-emerald-100 border-t-2 border-emerald-300">
                 <tr>
                   <td colSpan="5" className="px-4 py-4 text-right text-sm font-bold text-gray-900">
                     Grand Total:
                   </td>
-                  <td className="px-3 py-4 sm:px-4 whitespace-nowrap text-sm font-bold text-emerald-700">
+                  <td className="px-3 py-4 sm:px-4 whitespace-nowrap text-sm font-bold text-emerald-800">
                     {formatNumber(grandTotalFt3)} ft³
                   </td>
-                  <td className="px-3 py-4 sm:px-4 whitespace-nowrap text-sm font-bold text-emerald-700">
+                  <td className="px-3 py-4 sm:px-4 whitespace-nowrap text-sm font-bold text-emerald-800">
                     {formatNumber(grandTotalM3)} m³
                   </td>
                   <td className="px-3 py-4 sm:px-4"></td>
@@ -249,7 +249,7 @@ export default function VolumeTable({ rows, onRowsChange }) {
       <div className="px-4 sm:px-6 py-4 bg-gray-50 border-t border-gray-200 flex flex-wrap gap-3">
         <button
           onClick={handleAddRow}
-          className="inline-flex items-center px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all active:scale-95"
+          className="inline-flex items-center px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all active:scale-95"
           aria-label="Add new row"
         >
           <Plus className="h-4 w-4 mr-2" aria-hidden="true" />
@@ -257,7 +257,7 @@ export default function VolumeTable({ rows, onRowsChange }) {
         </button>
         <button
           onClick={handleClearAll}
-          className="inline-flex items-center px-5 py-2.5 bg-white border border-gray-300 text-gray-700 text-sm font-semibold rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-95"
+          className="inline-flex items-center px-5 py-2.5 bg-white border border-gray-300 text-gray-900 text-sm font-semibold rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-95"
           disabled={rows.length === 0}
           aria-label="Clear all rows"
         >

@@ -96,27 +96,29 @@ function App() {
 
         {/* Grand Total Card */}
         {rows.length > 0 && (
-          <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white rounded-xl p-4 shadow-lg">
-            <div className="text-xs font-medium opacity-90 mb-1.5">Total Volume</div>
+          <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 text-white rounded-xl p-4 shadow-lg" role="region" aria-label="Total volume calculation">
+            <div className="text-xs font-medium mb-1.5">Total Volume</div>
             <div className="text-2xl sm:text-3xl font-bold mb-0.5">{grandTotalFt3.toFixed(2)} ft³</div>
-            <div className="text-base sm:text-lg font-medium opacity-95">{grandTotalM3.toFixed(2)} m³</div>
+            <div className="text-base sm:text-lg font-medium">{grandTotalM3.toFixed(2)} m³</div>
           </div>
         )}
 
         {/* Export Buttons */}
         <div className="flex justify-end gap-3">
-          <button
-            onClick={handleSharePDF}
-            className="inline-flex items-center px-5 py-3.5 bg-white border-2 border-emerald-500 text-emerald-600 hover:bg-emerald-50 text-base font-semibold rounded-xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-95"
-            disabled={rows.length === 0}
-            aria-label="Share PDF report"
-          >
-            <Share2 className="h-5 w-5 mr-2" aria-hidden="true" />
-            Share
-          </button>
+          {navigator.share && (
+            <button
+              onClick={handleSharePDF}
+              className="inline-flex items-center px-5 py-3.5 bg-white border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 text-base font-semibold rounded-xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-95"
+              disabled={rows.length === 0}
+              aria-label="Share PDF report"
+            >
+              <Share2 className="h-5 w-5 mr-2" aria-hidden="true" />
+              Share
+            </button>
+          )}
           <button
             onClick={handleDownloadPDF}
-            className="inline-flex items-center px-6 py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white text-base font-semibold rounded-xl shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-95"
+            className="inline-flex items-center px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white text-base font-semibold rounded-xl shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-95"
             disabled={rows.length === 0}
             aria-label="Download PDF report"
           >
