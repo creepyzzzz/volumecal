@@ -111,29 +111,29 @@ export default function VolumeTable({ rows, onRowsChange }) {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider w-14">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider w-14">
                   #
                 </th>
-                <th className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[100px]">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[100px]">
                   Length
                 </th>
-                <th className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[120px]">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[120px]">
                   Height
                 </th>
-                <th className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[120px]">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[120px]">
                   Top
                 </th>
-                <th className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[100px]">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[100px]">
                   Bed
                 </th>
-                <th className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[90px]">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[90px]">
                   Vol (ft³)
                 </th>
-                <th className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[90px]">
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider min-w-[90px]">
                   Vol (m³)
                 </th>
-                <th className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider w-16">
-                  Action
+                <th scope="col" className="px-3 py-3.5 sm:px-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider w-16">
+                  <span className="sr-only">Action</span>
                 </th>
               </tr>
             </thead>
@@ -152,16 +152,21 @@ export default function VolumeTable({ rows, onRowsChange }) {
                       {index + 1}
                     </td>
                     <td className="px-3 py-3.5 sm:px-4 whitespace-nowrap">
+                      <label htmlFor={`length-${row.id}`} className="sr-only">Length for row {index + 1}</label>
                       <input
+                        id={`length-${row.id}`}
                         type="text"
                         value={row.length}
                         onChange={(e) => handleInputChange(row.id, 'length', e.target.value)}
                         className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-white transition-all"
                         placeholder="5.6"
+                        aria-label={`Length for row ${index + 1}`}
                       />
                     </td>
                     <td className="px-3 py-3.5 sm:px-4 whitespace-nowrap">
+                      <label htmlFor={`height-${row.id}`} className="sr-only">Height for row {index + 1}</label>
                       <input
+                        id={`height-${row.id}`}
                         type="text"
                         value={row.heightReadings}
                         onChange={(e) => handleInputChangeWithSpace(e, row.id, 'heightReadings')}
@@ -170,10 +175,13 @@ export default function VolumeTable({ rows, onRowsChange }) {
                         onBeforeInput={(e) => handleBeforeInput(e, row.id, 'heightReadings')}
                         className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-white transition-all"
                         placeholder="5+5+5"
+                        aria-label={`Height readings for row ${index + 1}. Press space to add plus sign.`}
                       />
                     </td>
                     <td className="px-3 py-3.5 sm:px-4 whitespace-nowrap">
+                      <label htmlFor={`top-${row.id}`} className="sr-only">Top for row {index + 1}</label>
                       <input
+                        id={`top-${row.id}`}
                         type="text"
                         value={row.topReadings}
                         onChange={(e) => handleInputChangeWithSpace(e, row.id, 'topReadings')}
@@ -182,15 +190,19 @@ export default function VolumeTable({ rows, onRowsChange }) {
                         onBeforeInput={(e) => handleBeforeInput(e, row.id, 'topReadings')}
                         className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-white transition-all"
                         placeholder="4+5+5"
+                        aria-label={`Top readings for row ${index + 1}. Press space to add plus sign.`}
                       />
                     </td>
                     <td className="px-3 py-3.5 sm:px-4 whitespace-nowrap">
+                      <label htmlFor={`bed-${row.id}`} className="sr-only">Bed for row {index + 1}</label>
                       <input
+                        id={`bed-${row.id}`}
                         type="text"
                         value={row.bedWidth}
                         onChange={(e) => handleInputChange(row.id, 'bedWidth', e.target.value)}
                         className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-white transition-all"
                         placeholder="5.6"
+                        aria-label={`Bed width for row ${index + 1}`}
                       />
                     </td>
                     <td className="px-3 py-3.5 sm:px-4 whitespace-nowrap text-sm font-semibold text-gray-900">
@@ -203,8 +215,10 @@ export default function VolumeTable({ rows, onRowsChange }) {
                       <button
                         onClick={() => handleDeleteRow(row.id)}
                         className="text-gray-400 hover:text-red-500 p-1.5 rounded-lg hover:bg-red-50 transition-all active:scale-95"
+                        aria-label={`Delete row ${index + 1}`}
+                        title={`Delete row ${index + 1}`}
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="h-4 w-4" aria-hidden="true" />
                       </button>
                     </td>
                   </tr>
@@ -236,16 +250,18 @@ export default function VolumeTable({ rows, onRowsChange }) {
         <button
           onClick={handleAddRow}
           className="inline-flex items-center px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all active:scale-95"
+          aria-label="Add new row"
         >
-          <Plus className="h-4 w-4 mr-2" />
+          <Plus className="h-4 w-4 mr-2" aria-hidden="true" />
           Add
         </button>
         <button
           onClick={handleClearAll}
           className="inline-flex items-center px-5 py-2.5 bg-white border border-gray-300 text-gray-700 text-sm font-semibold rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-95"
           disabled={rows.length === 0}
+          aria-label="Clear all rows"
         >
-          <X className="h-4 w-4 mr-2" />
+          <X className="h-4 w-4 mr-2" aria-hidden="true" />
           Clear All
         </button>
       </div>

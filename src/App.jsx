@@ -73,14 +73,14 @@ function App() {
   return (
     <div className="min-h-screen bg-[#F9FAFB] pb-8 safe-area-inset-bottom">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200/80 sticky top-0 z-20 shadow-sm safe-area-inset-top">
+      <header className="bg-white border-b border-gray-200/80 sticky top-0 z-20 shadow-sm safe-area-inset-top">
         <div className="px-4 py-2 sm:px-6 sm:py-3">
           <h1 className="text-lg sm:text-2xl font-semibold text-gray-900 tracking-tight">Volume Calculator</h1>
         </div>
-      </div>
+      </header>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
         {/* Header Form Card */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           <HeaderForm
@@ -109,20 +109,22 @@ function App() {
             onClick={handleSharePDF}
             className="inline-flex items-center px-5 py-3.5 bg-white border-2 border-emerald-500 text-emerald-600 hover:bg-emerald-50 text-base font-semibold rounded-xl shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-95"
             disabled={rows.length === 0}
+            aria-label="Share PDF report"
           >
-            <Share2 className="h-5 w-5 mr-2" />
+            <Share2 className="h-5 w-5 mr-2" aria-hidden="true" />
             Share
           </button>
           <button
             onClick={handleDownloadPDF}
             className="inline-flex items-center px-6 py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white text-base font-semibold rounded-xl shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-95"
             disabled={rows.length === 0}
+            aria-label="Download PDF report"
           >
-            <FileDown className="h-5 w-5 mr-2" />
+            <FileDown className="h-5 w-5 mr-2" aria-hidden="true" />
             Download
           </button>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
