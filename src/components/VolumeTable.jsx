@@ -59,7 +59,45 @@ export default function VolumeTable({ rows, onRowsChange }) {
       e.stopPropagation();
       const currentValue = rows.find(r => r.id === id)?.[field] || '';
       handleInputChange(id, field, currentValue + '+');
+      return false;
     }
+  };
+
+  const handleKeyUp = (e, id, field) => {
+    // Additional handler for mobile keyboards
+    if ((field === 'heightReadings' || field === 'topReadings') && 
+        (e.key === ' ' || e.key === 'Space' || e.keyCode === 32)) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+  };
+
+  const handleBeforeInput = (e, id, field) => {
+    // Handle spacebar before input is inserted (better for mobile)
+    if ((field === 'heightReadings' || field === 'topReadings') && e.data === ' ') {
+      e.preventDefault();
+      const currentValue = rows.find(r => r.id === id)?.[field] || '';
+      handleInputChange(id, field, currentValue + '+');
+      return false;
+    }
+  };
+
+  const handleInputChangeWithSpace = (e, id, field) => {
+    // Intercept space characters in onChange and convert to +
+    if (field === 'heightReadings' || field === 'topReadings') {
+      const value = e.target.value;
+      // Check if space was just added
+      const lastChar = value[value.length - 1];
+      if (lastChar === ' ') {
+        // Replace space with +
+        const newValue = value.slice(0, -1) + '+';
+        handleInputChange(id, field, newValue);
+        return;
+      }
+    }
+    // Normal change handler
+    handleInputChange(id, field, e.target.value);
   };
 
   const grandTotalFt3 = rows.reduce((sum, row) => sum + (row.volFt3 || 0), 0);
@@ -126,8 +164,10 @@ export default function VolumeTable({ rows, onRowsChange }) {
                       <input
                         type="text"
                         value={row.heightReadings}
-                        onChange={(e) => handleInputChange(row.id, 'heightReadings', e.target.value)}
+                        onChange={(e) => handleInputChangeWithSpace(e, row.id, 'heightReadings')}
                         onKeyDown={(e) => handleKeyDown(e, row.id, 'heightReadings')}
+                        onKeyUp={(e) => handleKeyUp(e, row.id, 'heightReadings')}
+                        onBeforeInput={(e) => handleBeforeInput(e, row.id, 'heightReadings')}
                         className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-white transition-all"
                         placeholder="5+5+5"
                       />
@@ -136,8 +176,10 @@ export default function VolumeTable({ rows, onRowsChange }) {
                       <input
                         type="text"
                         value={row.topReadings}
-                        onChange={(e) => handleInputChange(row.id, 'topReadings', e.target.value)}
+                        onChange={(e) => handleInputChangeWithSpace(e, row.id, 'topReadings')}
                         onKeyDown={(e) => handleKeyDown(e, row.id, 'topReadings')}
+                        onKeyUp={(e) => handleKeyUp(e, row.id, 'topReadings')}
+                        onBeforeInput={(e) => handleBeforeInput(e, row.id, 'topReadings')}
                         className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-white transition-all"
                         placeholder="4+5+5"
                       />
