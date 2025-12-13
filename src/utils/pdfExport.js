@@ -6,8 +6,7 @@ import 'jspdf-autotable';
  */
 export function generatePDF(data) {
   const {
-    workName = '',
-    siteLocation = '',
+    workDetail = '',
     workType = '',
     date = new Date().toLocaleDateString(),
     rows = [],
@@ -29,14 +28,17 @@ export function generatePDF(data) {
   let yPos = 25;
   
   // Work details
-  if (workName) {
-    doc.text(`Work Name: ${workName}`, 14, yPos);
+  if (workDetail) {
+    // Split workDetail into lines if it has multiple lines
+    const workDetailLines = workDetail.split('\n').filter(Boolean);
+    doc.text(`Work Detail: ${workDetailLines[0]}`, 14, yPos);
     yPos += 7;
-  }
-  
-  if (siteLocation) {
-    doc.text(`Site Location: ${siteLocation}`, 14, yPos);
-    yPos += 7;
+    
+    // Add additional lines if any
+    for (let i = 1; i < workDetailLines.length; i++) {
+      doc.text(workDetailLines[i], 14, yPos);
+      yPos += 7;
+    }
   }
   
   if (workType) {
@@ -114,11 +116,14 @@ export function generatePDF(data) {
 export function downloadPDF(data) {
   const doc = generatePDF(data);
   const {
-    workName = '',
+    workDetail = '',
     date = new Date().toLocaleDateString(),
   } = data;
   
-  const fileName = `Volume_Calculation_${workName || 'Report'}_${date.replace(/\//g, '-')}.pdf`;
+  // Use first line of workDetail for filename, or first 20 chars
+  const workDetailForFile = workDetail.split('\n')[0] || workDetail.substring(0, 20) || 'Report';
+  const sanitized = workDetailForFile.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 30);
+  const fileName = `Volume_Calculation_${sanitized}_${date.replace(/\//g, '-')}.pdf`;
   doc.save(fileName);
 }
 
@@ -128,12 +133,16 @@ export function downloadPDF(data) {
 export async function sharePDF(data) {
   const doc = generatePDF(data);
   const {
-    workName = '',
+    workDetail = '',
     date = new Date().toLocaleDateString(),
   } = data;
   
+  // Use first line of workDetail for filename
+  const workDetailForFile = workDetail.split('\n')[0] || workDetail.substring(0, 20) || 'Report';
+  const sanitized = workDetailForFile.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 30);
+  const fileName = `Volume_Calculation_${sanitized}_${date.replace(/\//g, '-')}.pdf`;
+  
   const pdfBlob = doc.output('blob');
-  const fileName = `Volume_Calculation_${workName || 'Report'}_${date.replace(/\//g, '-')}.pdf`;
   const file = new File([pdfBlob], fileName, { type: 'application/pdf' });
   
   // Check if Web Share API is available
@@ -142,7 +151,7 @@ export async function sharePDF(data) {
       await navigator.share({
         files: [file],
         title: 'Volume Calculation Report',
-        text: `Volume calculation report for ${workName || 'construction work'}`,
+        text: `Volume calculation report for ${workDetailForFile || 'construction work'}`,
       });
     } catch (error) {
       if (error.name !== 'AbortError') {

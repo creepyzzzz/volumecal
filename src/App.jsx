@@ -42,15 +42,10 @@ function App() {
   }, [workInfo, workType, rows]);
 
   const getPDFData = () => {
-    // Split workInfo into name and location (first line = name, rest = location)
-    const lines = workInfo.split('\n').filter(Boolean);
-    const workName = lines[0] || '';
-    const siteLocation = lines.slice(1).join(', ') || lines[0] || '';
     const date = new Date().toLocaleDateString();
 
     return {
-      workName,
-      siteLocation,
+      workDetail: workInfo,
       workType,
       date,
       rows,
