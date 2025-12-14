@@ -18,12 +18,21 @@
     
     <style>
       /* Prevent flash of unstyled content */
-      body {
+      * {
+        box-sizing: border-box;
+      }
+      html, body {
         margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden;
         background-color: #F9FAFB;
       }
       #root {
         min-height: 100vh;
+        width: 100%;
+        overflow-x: hidden;
+        position: relative;
       }
     </style>
   </head>
